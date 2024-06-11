@@ -3,19 +3,40 @@
 <head>
     <title>QR Code Scanner</title>
     <script src="https://unpkg.com/html5-qrcode"></script>
+    <style>
+        #reader {
+            width: 300px;
+            margin: auto;
+        }
+        #start-scanning {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
     <h1>QR Code Scanner</h1>
-    <div id="reader" style="width: 300px;"></div>
+    <button id="start-scanning">Start Scanning</button>
+    <div id="reader"></div>
     <script>
+        const startScanningButton = document.getElementById('start-scanning');
+        const readerDiv = document.getElementById('reader');
+
         function onScanSuccess(decodedText, decodedResult) {
             console.log(`Code scanned = ${decodedText}`, decodedResult);
             alert(`QR Code scanned: ${decodedText}`);
         }
 
-        var html5QrcodeScanner = new Html5QrcodeScanner(
-            "reader", { fps: 10, qrbox: 250 });
-        html5QrcodeScanner.render(onScanSuccess);
+        startScanningButton.addEventListener('click', () => {
+            const html5QrcodeScanner = new Html5QrcodeScanner(
+                "reader", { fps: 10, qrbox: 250 });
+            html5QrcodeScanner.render(onScanSuccess);
+        });
     </script>
 </body>
 </html>
